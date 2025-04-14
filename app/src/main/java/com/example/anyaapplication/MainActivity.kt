@@ -81,10 +81,8 @@ class MainActivity : ComponentActivity() {
         if (!SpeechRecognizer.isRecognitionAvailable(context)) {
             makeText(context, "Speech not Available", LENGTH_SHORT).show()
         } else {
-            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            intent.putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.EXTRA_RESULTS
-            )
+            val intent = Intent(RecognizerIntent.ACTION_WEB_SEARCH)
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.EXTRA_RESULTS)
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
             intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak Something")
             startActivityForResult(intent, 101)

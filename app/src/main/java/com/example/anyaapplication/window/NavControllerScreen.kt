@@ -64,7 +64,8 @@ fun NavController(
                     userMedicines = userMedicines,
                     userWeight = userWeight,
                     userBloodType = userBloodType,
-                    navController = navController
+                    navController = navController,
+                    outputTxt = outputTxt
                 )
             }
         }

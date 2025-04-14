@@ -23,7 +23,7 @@ fun ListItem(item: NameEntity,
 
     Card (modifier = Modifier
         .fillMaxWidth()
-        .padding(4.dp)
+        .padding(top = 4.dp, end = 4.dp)
         .clickable {
             onClick(item)
         }){

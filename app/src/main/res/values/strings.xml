@@ -1,3 +1,17 @@
 <resources>
+
     <string name="app_name">AnyaApplication</string>
+
+    //labels
+    <string name="age_label">Enter your age</string>
+    <string name="weight_label">Enter your weight</string>
+    <string name="name_label">Enter your name</string>
+    <string name="height_label">Enter your height</string>
+    <string name="blood_type_label">Enter your blood type</string>
+    <string name="medicine_label">Enter your medicine</string>
+
+    //app string
+    <string name="user_info">Tell us a little about yourself</string>
+    <string name="user_notifications">Your reminders will be saved here.</string>
+
 </resources>
