@@ -62,6 +62,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.anyaapplication.R
 import com.example.anyaapplication.setting.DataStoreManager
+import com.example.anyaapplication.setting.DialogItem
 import com.example.anyaapplication.setting.SettingData
 import com.example.anyaapplication.setting.room.ListItem
 import com.example.anyaapplication.setting.room.MainViewModel
@@ -78,6 +79,8 @@ fun DataScreen(
     userWeight: MutableState<String>,
     userBloodType: MutableState<String>,
     userMedicines: MutableState<String>,
+    valueFromClose: MutableState<Boolean>,
+    valueFromCloseInfo: MutableState<Boolean>,
     navController: NavController,
     outputTxt: String
 ){
@@ -219,7 +222,9 @@ fun DataScreen(
                                             userMedicines = userMedicines.value,
                                             userWeight = userWeight.value,
                                             userBloodType = userBloodType.value,
-                                            userHeight = userHeight.value
+                                            userHeight = userHeight.value,
+                                            valueFromClose = valueFromClose.value,
+                                            valueFromCloseInfo = valueFromCloseInfo.value
                                         )
                                     )
                                 }
@@ -236,7 +241,6 @@ fun DataScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
-                    .clickable { enabledFromExpand = !enabledFromExpand }
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -266,7 +270,6 @@ fun DataScreen(
                     }
                 }
             }
-
             LazyColumn(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -281,8 +284,8 @@ fun DataScreen(
                         {
                             mainViewModel.nameEntity = it
                             mainViewModel.nameText.value = it.name
-                            mainViewModel.hourInt.intValue = it.hour
-                            mainViewModel.minuteInt.intValue = it.minute
+                            mainViewModel.hourString.value = it.hour
+                            mainViewModel.minuteString.value = it.minute
                             mainViewModel.categoryBoolean.value = it.category
                         },
                         {
@@ -290,6 +293,14 @@ fun DataScreen(
                         }
                     )
                 }
+            }
+            Button(
+                onClick = {valueFromClose.value = true}
+            ){
+                Text("Add notification")
+            }
+            if (valueFromClose.value){
+                DialogItem(valueFromClose = valueFromClose)
             }
         }
     }

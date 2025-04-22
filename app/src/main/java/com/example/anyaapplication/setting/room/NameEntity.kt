@@ -12,9 +12,9 @@ data class NameEntity(
     @ColumnInfo(name = "name")
     val name: String,
     @ColumnInfo(name = "hour")
-    val hour: Int,
+    val hour: String,
     @ColumnInfo(name = "minute")
-    val minute: Int,
+    val minute: String,
     @ColumnInfo(name = "category")
     var category: Boolean
 )

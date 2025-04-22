@@ -1,6 +1,5 @@
 package com.example.anyaapplication.window
 
-import android.media.MediaPlayer
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -14,33 +13,31 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.PlayArrow
-import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.anyaapplication.R
+import com.example.anyaapplication.setting.InformationDialog
 import com.example.anyaapplication.setting.room.MainViewModel
 import com.example.anyaapplication.setting.voiceHandlerFunction
-import kotlinx.coroutines.launch
 import java.util.Calendar
+import java.util.Locale
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -50,23 +47,22 @@ fun MainScreen(
     outputTxt: String,
     mainViewModel: MainViewModel = viewModel(factory = MainViewModel.factory),
     outputTxtDelete: () -> Unit,
-    navController: NavController
+    navController: NavController,
+    valueFromCloseInfo: MutableState<Boolean>
 ) {
 
-    val scope = rememberCoroutineScope()
-    val mContext = LocalContext.current
+    val context = LocalContext.current
 
-    // audio files start
-    val audioBelly = MediaPlayer.create(mContext, R.raw.belly)
-    val audioHead = MediaPlayer.create(mContext, R.raw.head)
-    val audioLeg = MediaPlayer.create(mContext, R.raw.leg)
-    val audioGreeting = MediaPlayer.create(mContext, R.raw.greeting)
-    val audioReminder1 = MediaPlayer.create(mContext, R.raw.reminder1)
-    val audioReminder2 = MediaPlayer.create(mContext, R.raw.reminder2)
-    val audioUnderstand = MediaPlayer.create(mContext, R.raw.understand)
-    val audioOpening = MediaPlayer.create(mContext, R.raw.opening)
-    // audio files end
+    val arrayFromSave = arrayOf(
+        "сохрани",
+        "напомни",
+        "подскажи",
+        "запомни",
+        ":",
+        "карту"
+    )
 
+    // Timer from save
     val currentTime = Calendar.getInstance()
     val timePickerState = rememberTimePickerState(
         initialHour = currentTime.get(Calendar.HOUR_OF_DAY),
@@ -74,53 +70,33 @@ fun MainScreen(
         //is24Hour = true,
     )
 
-    LaunchedEffect(key1 = true) {
-        scope.launch {
-            if (outputTxt.isNotEmpty()) {
-                outputTxtDelete()
-            }
-        }
-    }
-
-    LaunchedEffect(key1 = true) {
-        scope.launch {
-            if (voiceHandlerFunction(voiceValue = outputTxt) == "напоминание создано") {
+    // VoiceHandler function doWork
+    if (outputTxt.isNotEmpty()){
+        voiceHandlerFunction(voiceValue = outputTxt, context = context)
+        if (outputTxt.lowercase(Locale.ROOT).contains(arrayFromSave[0]) ||
+            outputTxt.lowercase(Locale.ROOT).contains(arrayFromSave[1]) ||
+            outputTxt.lowercase(Locale.ROOT).contains(arrayFromSave[2]) ||
+            outputTxt.lowercase(Locale.ROOT).contains(arrayFromSave[3]) ){
+            if (outputTxt.lowercase(Locale.ROOT).contains(arrayFromSave[4])){
                 mainViewModel.nameText.value = outputTxt
-                mainViewModel.hourInt.intValue =
-                    outputTxt.substringAfterLast("в ").substringBefore(":").toInt()
-                mainViewModel.minuteInt.intValue =
-                    outputTxt.substringAfter(":").substringBefore(" ").toInt()
+                mainViewModel.hourString.value =
+                    outputTxt.substringAfterLast("в ").substringBefore(":")
+                mainViewModel.minuteString.value =
+                    outputTxt.substringAfter(":").substringBefore(" ")
                 mainViewModel.categoryBoolean.value = true
                 mainViewModel.insertItem()
-            } else if (voiceHandlerFunction(voiceValue = outputTxt) == "напоминание создано, укажите время во вкладке заметки") {
+            } else {
                 mainViewModel.nameText.value = outputTxt
-                mainViewModel.hourInt.intValue = timePickerState.hour
-                mainViewModel.minuteInt.intValue = timePickerState.minute
+                mainViewModel.hourString.value = timePickerState.hour.toString()
+                mainViewModel.minuteString.value = timePickerState.minute.toString()
                 mainViewModel.categoryBoolean.value = true
                 mainViewModel.insertItem()
             }
         }
     }
+    outputTxtDelete.invoke()
 
-    if (voiceHandlerFunction(voiceValue = outputTxt) == "напоминание создано")
-        audioReminder2.start()
-    else if (voiceHandlerFunction(voiceValue = outputTxt) == "напоминание создано, укажите время во вкладке заметки")
-        audioReminder1.start()
-    else if (voiceHandlerFunction(voiceValue = outputTxt) == "карту")
-        audioOpening.start()
-    else if (voiceHandlerFunction(voiceValue = outputTxt) == "живот")
-        audioBelly.start()
-    else if (voiceHandlerFunction(voiceValue = outputTxt) == "нога")
-        audioLeg.start()
-    else if (voiceHandlerFunction(voiceValue = outputTxt) == "голова")
-        audioHead.start()
-    else if (voiceHandlerFunction(voiceValue = outputTxt) == "привет")
-        audioGreeting.start()
-    else if (voiceHandlerFunction(voiceValue = outputTxt) == "непонимаю") {
-        audioUnderstand.start()
-    }
-
-    // visual realization
+    // Visual realization
     Box(modifier = Modifier){
 
         Image(
@@ -139,11 +115,24 @@ fun MainScreen(
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.End,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 48.dp, end = 16.dp)
+                    .padding(bottom = 48.dp,
+                        end = 16.dp,
+                        start = 16.dp)
             ) {
+                IconButton(
+                    onClick = {
+                        valueFromCloseInfo.value = true
+                    }
+                ) {
+                    Icon(
+                        Icons.Rounded.Info,
+                        contentDescription = null,
+                        modifier = Modifier.size(64.dp)
+                    )
+                }
                 IconButton(
                     onClick = {
                         navController.navigate(Navigate.DataScreen.route)
@@ -184,26 +173,9 @@ fun MainScreen(
                     modifier = Modifier.size(60.dp)
                 )
             }
-            IconButton(
-                onClick = { outputTxtDelete() },
-                modifier = Modifier.padding(top = 96.dp)
-            ) {
-                Icon(
-                    Icons.Rounded.Refresh,
-                    contentDescription = null,
-                    modifier = Modifier.size(60.dp)
-                )
-            }
-            Text(
-                text = outputTxt,
-                modifier = Modifier.padding(16.dp),
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = voiceHandlerFunction(voiceValue = outputTxt),
-                modifier = Modifier.padding(16.dp),
-                textAlign = TextAlign.Center
-            )
+        }
+        if (valueFromCloseInfo.value){
+            InformationDialog(valueFromCloseInfo = valueFromCloseInfo)
         }
     }
 }

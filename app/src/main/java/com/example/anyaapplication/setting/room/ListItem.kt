@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
@@ -15,46 +16,41 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun ListItem(item: NameEntity,
              onClick: (NameEntity) -> Unit,
              onClickDelete: (NameEntity) -> Unit){
 
-    Card (modifier = Modifier
-        .fillMaxWidth()
-        .padding(top = 4.dp, end = 4.dp)
-        .clickable {
-            onClick(item)
-        }){
-        Row (modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween){
-            Row {
-                Text(
-                    text = item.hour.toString()
-                )
-                Text(
-                    text = ":"
-                )
-                Text(
-                    text = if (item.minute == 0){
-                        item.minute.toString() + "0"
-                    } else {
-                        item.minute.toString()
-                    }
-                )
+    Row (verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp, end = 4.dp)
+    ) {
+        Card(modifier = Modifier
+            .padding(end = 4.dp)
+            .clickable { onClick(item) })  {
+            Row (
+                modifier = Modifier.padding(2.dp)
+            ){
+                Text(item.hour + ":" + item.minute, fontSize = 36.sp)
             }
-            Text(
-                modifier = Modifier.fillMaxWidth(0.6f).padding(1.dp),
-                text = item.name.trimIndent()
+        }
+        Card (modifier = Modifier
+            .padding(start = 4.dp)
+            .clickable { onClick(item) }) {
+            Text(modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .padding(2.dp),
+                text = item.name.trimIndent(),
+                fontSize = 36.sp
             )
-            IconButton(onClick = { item.category = !item.category }) {
-                Text(item.category.toString())
-            }
-            IconButton(onClick = { onClickDelete (item) }) {
-                Icon(Icons.Filled.Delete, contentDescription = null)
-            }
+        }
+        IconButton(onClick = { onClickDelete (item) }) {
+            Icon(Icons.Filled.Delete,
+                contentDescription = null,
+                modifier = Modifier.size(32.dp)
+            )
         }
     }
 }

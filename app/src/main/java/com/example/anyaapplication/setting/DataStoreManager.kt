@@ -3,6 +3,7 @@ package com.example.anyaapplication.setting
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -20,6 +21,8 @@ class DataStoreManager(private val context: Context) {
             pref[stringPreferencesKey("userWeight")] = settingData.userWeight
             pref[stringPreferencesKey("userBloodType")] = settingData.userBloodType
             pref[stringPreferencesKey("userMedicines")] = settingData.userMedicines
+            pref[booleanPreferencesKey("valueFromClose")] = settingData.valueFromClose
+            pref[booleanPreferencesKey("valueFromCloseInfo")] = settingData.valueFromCloseInfo
         }
     }
 
@@ -31,6 +34,8 @@ class DataStoreManager(private val context: Context) {
             pref[stringPreferencesKey("userWeight")] ?: "",
             pref[stringPreferencesKey("userBloodType")] ?: "",
             pref[stringPreferencesKey("userMedicines")] ?: "",
+            pref[booleanPreferencesKey("valueFromClose")] == true,
+            pref[booleanPreferencesKey("valueFromCloseInfo")] == true
         )
     }
 }
@@ -41,5 +46,7 @@ data class SettingData(
     val userHeight: String,
     val userWeight: String,
     val userBloodType: String,
-    val userMedicines: String
+    val userMedicines: String,
+    val valueFromClose: Boolean,
+    val valueFromCloseInfo: Boolean
 )

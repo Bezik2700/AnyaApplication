@@ -32,7 +32,9 @@ fun NavController(
     userHeight: MutableState<String>,
     userWeight: MutableState<String>,
     userBloodType: MutableState<String>,
-    userMedicines: MutableState<String>
+    userMedicines: MutableState<String>,
+    valueFromClose: MutableState<Boolean>,
+    valueFromCloseInfo: MutableState<Boolean>
 ){
     val state = rememberScrollState()
 
@@ -47,7 +49,8 @@ fun NavController(
                     outputTxt = outputTxt,
                     getSpeechInput = getSpeechInput,
                     outputTxtDelete = outputTxtDelete,
-                    navController = navController
+                    navController = navController,
+                    valueFromCloseInfo = valueFromCloseInfo
                 )
             }
             composable(route = Navigate.MapScreen.route) {
@@ -65,7 +68,9 @@ fun NavController(
                     userWeight = userWeight,
                     userBloodType = userBloodType,
                     navController = navController,
-                    outputTxt = outputTxt
+                    outputTxt = outputTxt,
+                    valueFromClose = valueFromClose,
+                    valueFromCloseInfo = valueFromCloseInfo
                 )
             }
         }

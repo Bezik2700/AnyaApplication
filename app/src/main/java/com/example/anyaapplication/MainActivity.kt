@@ -50,6 +50,8 @@ class MainActivity : ComponentActivity() {
                 val userWeight = remember { mutableStateOf("") }
                 val userBloodType = remember { mutableStateOf("") }
                 val userMedicines = remember { mutableStateOf("") }
+                val valueFromClose = remember { mutableStateOf(false) }
+                val valueFromCloseInfo = remember { mutableStateOf(false) }
 
                 LaunchedEffect(key1 = true) {
                     dataStoreManager.getSettings().collect { settings ->
@@ -59,6 +61,8 @@ class MainActivity : ComponentActivity() {
                         userWeight.value = settings.userWeight
                         userBloodType.value = settings.userBloodType
                         userMedicines.value = settings.userMedicines
+                        valueFromClose.value = settings.valueFromClose
+                        valueFromCloseInfo.value = settings.valueFromCloseInfo
                     }
                 }
                 NavController(
@@ -72,7 +76,9 @@ class MainActivity : ComponentActivity() {
                     userHeight = userHeight,
                     userMedicines = userMedicines,
                     userWeight = userWeight,
-                    userBloodType = userBloodType
+                    userBloodType = userBloodType,
+                    valueFromClose = valueFromClose,
+                    valueFromCloseInfo = valueFromCloseInfo
                 )
             }
         }
@@ -81,7 +87,7 @@ class MainActivity : ComponentActivity() {
         if (!SpeechRecognizer.isRecognitionAvailable(context)) {
             makeText(context, "Speech not Available", LENGTH_SHORT).show()
         } else {
-            val intent = Intent(RecognizerIntent.ACTION_WEB_SEARCH)
+            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.EXTRA_RESULTS)
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
             intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak Something")

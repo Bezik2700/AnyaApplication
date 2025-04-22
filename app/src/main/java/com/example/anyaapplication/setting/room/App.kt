@@ -5,7 +5,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.room.Database
 import androidx.room.Room
@@ -25,21 +24,18 @@ class App: Application(){
         super.onCreate()
 
         val channel = NotificationChannel("default", "Default", NotificationManager.IMPORTANCE_DEFAULT)
-
         val notificationManager = getSystemService(NotificationManager::class.java)
-
         notificationManager.createNotificationChannel(channel)
 
         val periodicWorkRequest: WorkRequest = PeriodicWorkRequest.Builder(
             WorkerFromNotifications::class.java, 1, TimeUnit.DAYS)
             .build()
 
-        Log.i("WorkManager",periodicWorkRequest.toString())
         WorkManager.getInstance(this).enqueue(periodicWorkRequest)
     }
 }
 
-@Database(entities = [NameEntity:: class], version = 1)
+@Database(entities = [NameEntity:: class], version = 4)
 abstract class MainDb: RoomDatabase() {
     abstract val dao: Dao
     companion object {

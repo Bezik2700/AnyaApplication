@@ -1,6 +1,5 @@
 package com.example.anyaapplication.setting.room
 
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -14,8 +13,8 @@ class MainViewModel(private val database: MainDb): ViewModel() {
     val itemList = database.dao.getAllItems()
 
     val nameText = mutableStateOf("")
-    val hourInt = mutableIntStateOf(0)
-    val minuteInt = mutableIntStateOf(0)
+    val hourString = mutableStateOf("")
+    val minuteString = mutableStateOf("")
     val categoryBoolean = mutableStateOf(false)
 
     var nameEntity: NameEntity? = null
@@ -23,20 +22,20 @@ class MainViewModel(private val database: MainDb): ViewModel() {
     fun insertItem() = viewModelScope.launch {
         val nameItem = nameEntity?.copy(
             name = nameText.value,
-            hour = hourInt.intValue,
-            minute = minuteInt.intValue,
+            hour = hourString.value,
+            minute = minuteString.value,
             category = categoryBoolean.value,
         ) ?: NameEntity(
             name = nameText.value,
-            hour = hourInt.intValue,
-            minute = minuteInt.intValue,
+            hour = hourString.value,
+            minute = minuteString.value,
             category = categoryBoolean.value,
         )
         database.dao.insertItem(nameItem)
         nameEntity = null
         nameText.value = ""
-        hourInt.intValue = 0
-        minuteInt.intValue = 0
+        hourString.value = ""
+        minuteString.value = ""
         categoryBoolean.value = false
     }
 

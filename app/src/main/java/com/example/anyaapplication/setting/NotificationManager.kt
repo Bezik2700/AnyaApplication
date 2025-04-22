@@ -39,7 +39,6 @@ class WorkerFromNotifications(
     }
 
     companion object {
-        const val time = false
         const val title = "Hello"
         const val message = "Delay time you"
     }
