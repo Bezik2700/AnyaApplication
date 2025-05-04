@@ -14,9 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Info
-import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Settings
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,6 +24,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -100,7 +99,7 @@ fun MainScreen(
     Box(modifier = Modifier){
 
         Image(
-            painterResource(R.drawable.testfon),
+            painterResource(R.drawable.fon2),
             contentDescription = null,
             contentScale = ContentScale.FillBounds,
             modifier = Modifier.fillMaxSize()
@@ -109,7 +108,7 @@ fun MainScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 64.dp, bottom = 16.dp),
+                .padding(top = 32.dp, bottom = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top,
         ) {
@@ -118,7 +117,7 @@ fun MainScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 48.dp,
+                    .padding(bottom = 96.dp,
                         end = 16.dp,
                         start = 16.dp)
             ) {
@@ -130,7 +129,8 @@ fun MainScreen(
                     Icon(
                         Icons.Rounded.Info,
                         contentDescription = null,
-                        modifier = Modifier.size(64.dp)
+                        modifier = Modifier.size(64.dp),
+                        tint = Color.Black
                     )
                 }
                 IconButton(
@@ -141,36 +141,27 @@ fun MainScreen(
                     Icon(
                         Icons.Rounded.Settings,
                         contentDescription = null,
-                        modifier = Modifier.size(64.dp)
+                        modifier = Modifier.size(64.dp),
+                        tint = Color.Black
                     )
                 }
             }
-            Card(
+            Image(
+                painter = painterResource(R.drawable.anyapng2),
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds,
                 modifier = Modifier
-                    .size(360.dp)
+                    .size(300.dp)
                     .clip(CircleShape)
-            ) {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.anyapng),
-                        contentDescription = null,
-                        contentScale = ContentScale.FillBounds,
-                        modifier = Modifier.size(360.dp)
-                    )
-                }
-            }
+            )
             IconButton(
                 onClick = { getSpeechInput() },
-                modifier = Modifier.padding(top = 96.dp)
+                modifier = Modifier.padding(top = 160.dp).size(120.dp).clip(CircleShape)
             ) {
-                Icon(
-                    Icons.Rounded.PlayArrow,
+                Image(
+                    painterResource(R.drawable.micro),
                     contentDescription = null,
-                    modifier = Modifier.size(60.dp)
+                    modifier = Modifier.size(80.dp)
                 )
             }
         }

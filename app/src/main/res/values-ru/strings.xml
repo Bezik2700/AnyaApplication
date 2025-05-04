@@ -1,0 +1,29 @@
+<resources>
+
+    <string name="app_name">Аня</string>
+
+    //labels
+    <string name="age_label">Введите Ваш возраст</string>
+    <string name="weight_label">Введите Ваш вес</string>
+    <string name="name_label">Введите Ваше имя</string>
+    <string name="height_label">Введите Ваш рост</string>
+    <string name="blood_type_label">Введите Вашу группу крови</string>
+    <string name="medicine_label">Введите Ваши медицинские назначения</string>
+
+    //app string
+    <string name="anya_description">
+        Привет я голосовой помощник и зовут меня Аня,я готова помочь тебе. Просто нажми на микрофон и,
+        назвав мое имя, скажи что тебя беспокоит, и я постараюсь оказать тебе помощь. Например "Аня, у меня болит голова".
+        Также я могу сохранить вашу заметку, просту скажите "Аня, подскажи завтра записаться на прием к врачу" или
+        "Аня, сохрани сходить сегодня в аптеку в 18:00". Я знаю много чего, но пожалуйста не забывай упоминать мое
+        имя, чтобы я могла распознать, что ты обращаешься именно ко мне. Приятного использования.
+    </string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="apply">Подтвердить</string>
+    <string name="about_anya">Привет меня зовут Аня</string>
+    <string name="add_notification">Добавить уведомление</string>
+    <string name="save_settings">Сохранить настройки</string>
+    <string name="user_info">Расскажите немного о себе</string>
+    <string name="user_notifications">Ваши заметки будут храниться здесь</string>
+
+</resources>

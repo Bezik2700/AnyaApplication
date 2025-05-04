@@ -28,6 +28,7 @@ import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -94,7 +95,7 @@ fun DataScreen(
     Box(modifier = Modifier){
 
         Image(
-            painterResource(R.drawable.testfon),
+            painterResource(R.drawable.fon1),
             contentDescription = null,
             contentScale = ContentScale.FillBounds,
             modifier = Modifier.fillMaxSize()
@@ -105,7 +106,7 @@ fun DataScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 64.dp, bottom = 64.dp)
+                .padding(top = 32.dp, bottom = 64.dp)
         ) {
             Row (
                 verticalAlignment = Alignment.CenterVertically,
@@ -233,10 +234,11 @@ fun DataScreen(
                                 }
                             }
                         ) {
-                            Text(text = "save setting")
+                            Text(stringResource(R.string.save_settings))
                         }
                     }
                 }
+            HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp), color = Color.Red)
             Card (
                 modifier = Modifier
                     .fillMaxWidth()
@@ -270,6 +272,7 @@ fun DataScreen(
                     }
                 }
             }
+            HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp), color = Color.Red)
             LazyColumn(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -280,7 +283,8 @@ fun DataScreen(
                 state = listState,
             ) {
                 items(itemList.value) { item ->
-                    ListItem(item,
+                    ListItem(
+                        item,
                         {
                             mainViewModel.nameEntity = it
                             mainViewModel.nameText.value = it.name
@@ -290,14 +294,21 @@ fun DataScreen(
                         },
                         {
                             mainViewModel.deleteItem(it)
-                        }
+                        },
+                        valueFromClose = valueFromClose
                     )
                 }
             }
+            HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp), color = Color.Red)
             Button(
-                onClick = {valueFromClose.value = true}
+                onClick = {
+                    valueFromClose.value = true
+                    mainViewModel.nameText.value = ""
+                    mainViewModel.hourString.value = ""
+                    mainViewModel.minuteString.value = ""
+                }
             ){
-                Text("Add notification")
+                Text(stringResource(R.string.add_notification))
             }
             if (valueFromClose.value){
                 DialogItem(valueFromClose = valueFromClose)

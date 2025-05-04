@@ -26,7 +26,7 @@ class WorkerFromNotifications(
         val notification = NotificationCompat.Builder(applicationContext, notificationChannelID)
             .setContentTitle(title)
             .setContentText(message)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.appicon)
             .setContentIntent(PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_IMMUTABLE))
             .setAutoCancel(true)
             .build()

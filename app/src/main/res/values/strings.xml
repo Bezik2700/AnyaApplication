@@ -11,6 +11,18 @@
     <string name="medicine_label">Enter your medicine</string>
 
     //app string
+    <string name="anya_description">
+        Hi, I\m a voice assistant and my name is Anya, I\m ready to help you. Just tap on the microphone and
+        say my name, tell me what\s bothering you, and I\ll try to help you. For example, "Anya, I have a headache."
+        I can also save your note by simply saying "Anya, tell me to make an appointment with a doctor tomorrow" or
+        "Anya, save me to go to the pharmacy at 18:00 today." I know a lot of things, but please don\t forget to mention my
+        name so that I can recognize that you\re talking to me. Enjoy using it.
+    </string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="apply">Apply</string>
+    <string name="about_anya">Hello my name is Any</string>
+    <string name="add_notification">Add notification</string>
+    <string name="save_settings">Save settings</string>
     <string name="user_info">Tell us a little about yourself</string>
     <string name="user_notifications">Your reminders will be saved here.</string>
 

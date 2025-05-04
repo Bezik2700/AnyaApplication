@@ -2,15 +2,24 @@ package com.example.anyaapplication.window
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.anyaapplication.R
 import com.example.anyaapplication.setting.DataStoreManager
 
 sealed class Navigate(val route: String){
@@ -39,11 +48,19 @@ fun NavController(
     val state = rememberScrollState()
 
     Box(modifier = Modifier){
+        Image(
+            painterResource(R.drawable.fon1),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds
+        )
         NavHost(
             modifier = Modifier.padding(),
             navController = navController,
             startDestination = Navigate.MainScreen.route,
-        ) {
+            enterTransition = { slideInHorizontally(initialOffsetX = { 10000 }) + fadeIn() },
+            exitTransition = { slideOutHorizontally(targetOffsetX = { -10000 }) + fadeOut() }
+            ) {
             composable(route = Navigate.MainScreen.route) {
                 MainScreen(
                     outputTxt = outputTxt,
