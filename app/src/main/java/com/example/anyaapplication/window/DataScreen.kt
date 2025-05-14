@@ -238,7 +238,7 @@ fun DataScreen(
                         }
                     }
                 }
-            HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp), color = Color.Red)
+            HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp), color = Color.Black)
             Card (
                 modifier = Modifier
                     .fillMaxWidth()
@@ -272,7 +272,7 @@ fun DataScreen(
                     }
                 }
             }
-            HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp), color = Color.Red)
+            HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp), color = Color.Black)
             LazyColumn(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -299,7 +299,7 @@ fun DataScreen(
                     )
                 }
             }
-            HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp), color = Color.Red)
+            HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp), color = Color.Black)
             Button(
                 onClick = {
                     valueFromClose.value = true

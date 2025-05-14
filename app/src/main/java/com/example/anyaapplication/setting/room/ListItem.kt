@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.rounded.ArrowDropDown
+import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -74,10 +75,17 @@ fun ListItem(item: NameEntity,
                 )
                 if (item.name.length > 20){
                     IconButton(onClick = {arrowIconButton = !arrowIconButton}) {
-                        Icon(
-                            Icons.Rounded.ArrowDropDown,
-                            contentDescription = null
-                        )
+                        if (arrowIconButton){
+                            Icon(
+                                Icons.Rounded.KeyboardArrowUp,
+                                contentDescription = null
+                            )
+                        } else {
+                            Icon(
+                                Icons.Rounded.ArrowDropDown,
+                                contentDescription = null
+                            )
+                        }
                     }
                 }
             }
@@ -86,7 +94,7 @@ fun ListItem(item: NameEntity,
             Icon(Icons.Filled.Delete,
                 contentDescription = null,
                 modifier = Modifier.size(32.dp),
-                tint = Color.Red
+                tint = Color.Blue
             )
         }
     }

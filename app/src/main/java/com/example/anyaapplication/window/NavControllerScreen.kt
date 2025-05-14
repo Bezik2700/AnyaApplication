@@ -10,7 +10,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
@@ -21,8 +20,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.anyaapplication.R
 import com.example.anyaapplication.setting.DataStoreManager
+import com.example.anyaapplication.setting.SplashScreen
 
 sealed class Navigate(val route: String){
+    data object SplashScreen: Navigate("SplashScreen")
     data object MapScreen: Navigate("MapScreen")
     data object MainScreen: Navigate("MainScreen")
     data object DataScreen: Navigate("DataScreen")
@@ -45,8 +46,6 @@ fun NavController(
     valueFromClose: MutableState<Boolean>,
     valueFromCloseInfo: MutableState<Boolean>
 ){
-    val state = rememberScrollState()
-
     Box(modifier = Modifier){
         Image(
             painterResource(R.drawable.fon1),
@@ -57,10 +56,15 @@ fun NavController(
         NavHost(
             modifier = Modifier.padding(),
             navController = navController,
-            startDestination = Navigate.MainScreen.route,
-            enterTransition = { slideInHorizontally(initialOffsetX = { 10000 }) + fadeIn() },
-            exitTransition = { slideOutHorizontally(targetOffsetX = { -10000 }) + fadeOut() }
-            ) {
+            startDestination = Navigate.SplashScreen.route,
+            enterTransition = { slideInHorizontally(initialOffsetX = { 15000 }) + fadeIn() },
+            exitTransition = { slideOutHorizontally(targetOffsetX = { -15000 }) + fadeOut() }
+        ) {
+            composable (route = Navigate.SplashScreen.route) {
+                SplashScreen(
+                    navController = navController
+                )
+            }
             composable(route = Navigate.MainScreen.route) {
                 MainScreen(
                     outputTxt = outputTxt,

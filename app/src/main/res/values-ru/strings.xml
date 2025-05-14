@@ -24,6 +24,6 @@
     <string name="add_notification">Добавить уведомление</string>
     <string name="save_settings">Сохранить настройки</string>
     <string name="user_info">Расскажите немного о себе</string>
-    <string name="user_notifications">Ваши заметки будут храниться здесь</string>
+    <string name="user_notifications">Заметки</string>
 
 </resources>

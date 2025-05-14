@@ -24,6 +24,6 @@
     <string name="add_notification">Add notification</string>
     <string name="save_settings">Save settings</string>
     <string name="user_info">Tell us a little about yourself</string>
-    <string name="user_notifications">Your reminders will be saved here.</string>
+    <string name="user_notifications">Notes</string>
 
 </resources>

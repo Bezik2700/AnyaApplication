@@ -3,6 +3,7 @@ package com.example.anyaapplication.window
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -156,12 +157,16 @@ fun MainScreen(
             )
             IconButton(
                 onClick = { getSpeechInput() },
-                modifier = Modifier.padding(top = 160.dp).size(120.dp).clip(CircleShape)
+                modifier = Modifier
+                    .padding(top = 160.dp)
+                    .size(120.dp)
+                    .clip(CircleShape)
+                    .border(width = 1.dp, color = Color.Black)
             ) {
-                Image(
+                Icon(
                     painterResource(R.drawable.micro),
                     contentDescription = null,
-                    modifier = Modifier.size(80.dp)
+                    modifier = Modifier.size(40.dp)
                 )
             }
         }
